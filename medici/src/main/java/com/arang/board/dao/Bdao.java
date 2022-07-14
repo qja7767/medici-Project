@@ -26,7 +26,7 @@ public class Bdao {
 	public ArrayList<Bdto> list(){
 		String sql = "SELECT bId, bName, bTitle, bContent,"
 				+ " bDate, bHit, bGroup, bStep, bIndent"
-				+ " FROM board ORDER BY bGroup DESC, bStep ASC";
+				+ " FROM board ORDER BY bId DESC, bStep ASC";
 		ArrayList<Bdto> dtos = new ArrayList<Bdto>();
 		try {
 			Connection con = null;
@@ -59,10 +59,44 @@ public class Bdao {
 		return dtos;
 	}
 	
+	public ArrayList<Bdto> getSearch(String searchField, String searchText){//특정한 리스트를 받아서 반환
+		  String sql ="select * from bbs WHERE "+searchField.trim();
+	      ArrayList<Bdto> list = new ArrayList<Bdto>();
+	      try {
+	    	  	Connection con = null;
+				PreparedStatement pstmt = null;	
+				ResultSet rs = null;
+	            if(searchText != null && !searchText.equals("") ){
+	                sql +=" LIKE '%"+searchText.trim()+"%' order by bbsID desc limit 10";
+	            }
+	            try {
+	            	con = dataSource.getConnection();
+					pstmt = con.prepareStatement(sql);
+					rs = pstmt.executeQuery();
+					while(rs.next()) {
+			            Bdto bbs = new Bdto();
+			            bbs.setbId(rs.getInt(1));
+			            bbs.setbTitle(rs.getString(2));
+			            bbs.setbName(rs.getString(3));
+			            bbs.setbDate(rs.getTimestamp(4));
+			            bbs.setbContent(rs.getString(5));			            
+			            bbs.setbIndent(rs.getInt(6));			            
+			            list.add(bbs);//
+			         }
+	            }finally {
+	            	dataSource.close(rs, pstmt, con);
+	            }
+	        } catch(Exception e) {
+	        	e.printStackTrace();
+	        }
+	        return list;
+	     }
+	
 	public void write(String bName, String bTitle, String bContent){
-		String sql ="INSERT INTO board(bId, bName, bTitle, bContent, bHit,"
-				+ " bGroup, bStep, bIndent) "
-				+ "VALUES(1,?,?,?,1,1,1,1)";
+		String sql ="INSERT INTO board(bId, bName, bTitle, bContent,"
+				+ " bHit,"
+				+ " bGroup, bStep, bIndent)"
+				+ "VALUES(0,?,?,?,1,1,1,1)";
 		try {
 			Connection con = null;
 			PreparedStatement pstmt = null;
@@ -82,7 +116,7 @@ public class Bdao {
 	}
 	
 	public Bdto view(String sbId){
-		String sql = "select * from board where bId=?";
+		String sql = "SELECT * FROM board WHERE bId=?";
 		plusHit(sbId);
 		Bdto dto = null;
 		try {
@@ -252,6 +286,6 @@ public class Bdao {
 			e.printStackTrace();
 		}
 	}
+	
 
-
-	}
+}

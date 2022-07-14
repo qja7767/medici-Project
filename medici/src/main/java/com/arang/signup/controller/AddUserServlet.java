@@ -77,7 +77,7 @@ public class AddUserServlet extends HttpServlet {
 		request.setAttribute("userId", userId);
 		request.setAttribute("ssn", ssn);
 		
-		dispatcher = request.getRequestDispatcher("/signup/success.jsp");
+		dispatcher = request.getRequestDispatcher("/signup/mypage.jsp");
 		dispatcher.forward(request, response);	
 	}
 		
