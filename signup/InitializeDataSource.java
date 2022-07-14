@@ -1,4 +1,4 @@
-package gallBoard;
+package com.arang.signup;
 
 import java.io.InputStream;
 import java.util.Properties;

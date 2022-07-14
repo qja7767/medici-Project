@@ -1,4 +1,4 @@
-package gallBoard;
+package com.arang.signup;
 
 import java.util.HashMap;
 import java.util.Map;

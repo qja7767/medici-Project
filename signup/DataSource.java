@@ -1,4 +1,4 @@
-package gallBoard;
+package com.arang.signup;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
