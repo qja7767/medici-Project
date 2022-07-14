@@ -50,9 +50,13 @@ public class FrontController extends HttpServlet {
 		String viewPage = null;
 		
 		String uri = application.getRequestURI();
+<<<<<<< HEAD
 		//주소값 컨트롤
 		String conPath = application.getContextPath();
 		//주소값 자르기
+=======
+		String conPath = application.getContextPath();
+>>>>>>> 4a5ca0ef91bd50b4e97d9339deff686360bde6d1
 		String cmd = uri.substring(conPath.length());
 		
 		if(cmd.equals("/write_view.do")){

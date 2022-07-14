@@ -2,11 +2,14 @@
     pageEncoding="UTF-8"%>
 <%@page isELIgnored="false" %>
 <%@page import="java.util.*"%>
+<<<<<<< HEAD
 <%@page import="com.arang.board.dto.*"%>
 <%@page import="com.arang.board.cmd.*"%>
 <%@page import="com.arang.board.dao.*"%>
 
 
+=======
+>>>>>>> 4a5ca0ef91bd50b4e97d9339deff686360bde6d1
 <%
 	request.setCharacterEncoding("UTF-8");
 %>
@@ -38,7 +41,11 @@
 	</fieldset>
 	</form>
 	</div>
+<<<<<<< HEAD
 	
+=======
+
+>>>>>>> 4a5ca0ef91bd50b4e97d9339deff686360bde6d1
   <table width="800" cellpadding="0" cellspacing="0" border=1>
   	<!-- 제목 -->
   	<tr>
