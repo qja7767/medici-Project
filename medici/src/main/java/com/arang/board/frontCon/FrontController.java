@@ -26,63 +26,67 @@ public class FrontController extends HttpServlet {
         super();
     }
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+	protected void doGet(HttpServletRequest application, HttpServletResponse response)
 			throws ServletException, IOException {
 		System.out.println("doGet");
-		actionDo(request,response);
+		application.setCharacterEncoding("UTF-8");
+		actionDo(application,response);
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+	protected void doPost(HttpServletRequest application, HttpServletResponse response)
 			throws ServletException, IOException {
 		System.out.println("doPost");
-		actionDo(request,response);
+		application.setCharacterEncoding("UTF-8");
+		actionDo(application,response);
 	}
 
-	protected void actionDo(HttpServletRequest request, HttpServletResponse response)
+	protected void actionDo(HttpServletRequest application, HttpServletResponse response)
 			throws ServletException, IOException {
 		System.out.println("actionDo");
 		
-		request.setCharacterEncoding("UTF-8");
 		BCommand command = null;
 		
 		String viewPage = null;
 		
-		String uri = request.getRequestURI();
-		String conPath = request.getContextPath();
+		String uri = application.getRequestURI();
+		String conPath = application.getContextPath();
 		String cmd = uri.substring(conPath.length());
 		
 		if(cmd.equals("/write_view.do")){
 			viewPage = "write_form.jsp";
 		}else if(cmd.equals("/write.do")){
 			command = new BWriteCommand();
-			command.execute(request, response);
+			command.execute(application, response);
 			viewPage = "list.do";
 		}else if(cmd.equals("/list.do")){
 			command = new BListCommand();
-			command.execute(request, response);
+			command.execute(application, response);
 			viewPage = "list.jsp";
 		}else if(cmd.equals("/view.do")){
 			command = new BViewCommand();
-			command.execute(request, response);
+			command.execute(application, response);
 			viewPage = "view.jsp";
 		}else if(cmd.equals("/modify.do")){
 			command = new BModifyCommand();
-			command.execute(request, response);
+			command.execute(application, response);
 			viewPage = "list.do";
 		}else if(cmd.equals("/delete.do")){
 			command = new BDelcommand();
-			command.execute(request, response);
+			command.execute(application, response);
 			viewPage = "list.do";
 		}else if(cmd.equals("/replyView.do")){
 			command = new BReplyViewCommand();
-			command.execute(request, response);
+			command.execute(application, response);
 			viewPage = "reply_form.jsp";
 		}else if(cmd.equals("/reply.do")){
 			command = new BReplyCommand();
-			command.execute(request,response);
+			command.execute(application,response);
 			viewPage ="list.do";
-		}	
-		RequestDispatcher dispat = request.getRequestDispatcher(viewPage);
-		dispat.forward(request, response);
+		}
+		
+		
+		RequestDispatcher dispat = application.getRequestDispatcher(viewPage);
+		dispat.forward(application, response);
+
 	}	
 }
